@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>P7</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container-fluid">
+  	<div class="row">
+  	    <div class="col-sm-9 colMaps">
+  	    	<div id="map" style="width:100%;height:100%;"></div>
+  	    </div>
+  	    <div class="col-sm-3 colMaxHeight">
+          <h1 class="display-3 mb-4">EasyResto</h1>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Étoiles min/max:</span>
+            </div>
+            <input type="number" id="minStars" value="1" min="0" max="5" class="form-control">
+            <input type="number" id="maxStars" value="5" min="1" max="5" class="form-control">
+          </div>
+          <hr>
+  	    	<div id="list"></div>
+  	    </div>
+  	</div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nouveau Restaurant</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label for="modalRestaurantName">Nom</label>
+              <input type="text" class="form-control" id="modalRestaurantName" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+              <label for="modalAdresse">Adresse</label>
+              <input type="text" class="form-control" id="modalAdresse">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button id="modalOk" type="button" class="btn btn-primary">Sauvegarder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ratings Modal -->
+  <div class="modal fade" id="ratingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ratingsModalLabel">Nouveau Commentaire</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label for="ratingsModalText">Texte</label>
+              <input type="text" class="form-control" id="ratingsModalText" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+              <label for="modalAdresse">Note</label>
+              <input type="number" id="ratingsModalStars" value="5" min="1" max="5" class="form-control">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button id="ratingsModalOk" type="button" class="btn btn-primary">Sauvegarder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoAgu5pb6ODIxcuiG-8Ls9AgMhaGBebRU&libraries=places"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/resto.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
