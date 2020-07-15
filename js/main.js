@@ -2,7 +2,19 @@ let map = new Mapy;
 let resto = new Resto;
 
 map.initMap();
-resto.initResto();
+//resto.initResto();
+
+    service = new google.maps.places.PlacesService(map.gMap);
+
+    let requete = {
+      location: new google.maps.LatLng(48.858382,2.294480),
+      radius: '3000',
+      type: ['restaurant']
+    };
+
+    service.search(requete, function(resultats, status){
+    	resto.initResto(resultats);
+    });
 
 $('#minStars').change(function() {
 resto.moyChange($(this).val(),$('#maxStars').val());
@@ -28,10 +40,3 @@ $("#ratingsModalOk").click(function() {
 
 
 
-
-
-
-      console.log("Truc");
-    $.getJSON("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=36.950030,14.537220&radius=500&type=restaurant&key=AIzaSyDoAgu5pb6ODIxcuiG-8Ls9AgMhaGBebRU", function(data){
-      console.log("Data: " + data);
-    })

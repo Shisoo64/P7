@@ -16,7 +16,7 @@ class Mapy {
     }, function(positionError) {
       // Sinon centrage sur la tour eiffel
       map.gMap.setCenter(new google.maps.LatLng(48.858382, 2.294480));
-      map.gMap.setZoom(12);
+      map.gMap.setZoom(13);
       map.newMarker(new google.maps.LatLng(48.858382, 2.294480), "Vous");
     });
     map.gMap.addListener('click', function(e) {
@@ -43,13 +43,3 @@ class Mapy {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
