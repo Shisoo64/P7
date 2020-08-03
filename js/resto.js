@@ -10,29 +10,61 @@ class Resto {
     });
   }
 
-  initResto(resultats) {
-    $('#list').empty();
-    console.log(resultats);
 
-    $.each(resultats, function(i, restaurant){
-      var moy = restaurant.rating;
-      // Ajout Restaurant
-      resto.createResto(restaurant.geometry.location.lat(), restaurant.geometry.location.lng(), moy, restaurant.vicinity, restaurant.name);
-      
-      // Each ratings
-      var request = {
-        placeId: restaurant.reference
-      };
-      var service = new google.maps.places.PlacesService(map.gMap);
-      service.getDetails(request, function(place, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          $.each(place.reviews, function(e, ratings){
-            // Ajout Rating
-            resto.createRating(moy, ratings.rating, ratings.text, restaurant.name);
+
+  initRestoJson() {
+   $('#list').empty();
+      $.getJSON("restaurant.json", function(json) {
+        // Each restaurant
+        $.each(json, function(i, restaurant){
+          // Calcul moy restaurant
+          var moy = 0;
+          $.each(restaurant.ratings, function(e, ratings){
+            moy += restaurant.ratings[e].stars;
           });
-        }
+          moy = moy / restaurant.ratings.length;
+          // Ajout Restaurant
+          resto.createResto(restaurant.lat, restaurant.long, moy, restaurant.address, restaurant.restaurantName);
+          // Each ratings
+          $.each(restaurant.ratings, function(e, ratings){
+            // Ajout Rating
+            resto.createRating(moy, restaurant.ratings[e].stars, restaurant.ratings[e].comment, restaurant.restaurantName);
+          });
+        });
       });
+    }
 
+  initRestoPlaces(userLat, userLong) {
+    $('#list').empty();
+
+    let service = new google.maps.places.PlacesService(map.gMap);
+
+    let requete = {
+      location: new google.maps.LatLng(userLat, userLong),
+      radius: '10000',
+      type: ['restaurant']
+    };
+
+    service.search(requete, function(resultats, status){
+      $.each(resultats, function(i, restaurant){
+        var moy = restaurant.rating;
+        // Ajout Restaurant
+        resto.createResto(restaurant.geometry.location.lat(), restaurant.geometry.location.lng(), moy, restaurant.vicinity, restaurant.name);
+
+        // Each ratings
+        var request = {
+          placeId: restaurant.reference
+        };
+        var service = new google.maps.places.PlacesService(map.gMap);
+        service.getDetails(request, function(place, status) {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            $.each(place.reviews, function(e, ratings){
+              // Ajout Rating
+              resto.createRating(moy, ratings.rating, ratings.text, restaurant.name);
+            });
+          }
+        });
+      });
     });
   }
 
